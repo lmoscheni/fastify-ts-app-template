@@ -24,8 +24,8 @@
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
-    "test": "jest --verbose",
-    "test:coverage": "jest --coverage"
+    "test": "jest --verbose --passWithNoTest",
+    "test:coverage": "jest --passWithNoTest --coverage"
   },
   "husky": {
     "hooks": {
