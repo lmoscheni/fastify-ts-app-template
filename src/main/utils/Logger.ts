@@ -1,14 +1,15 @@
 import { createLogger, format, transports } from 'winston';
 import { hostname } from 'os';
 import { TransformableInfo } from 'logform';
-import { getRequestContext } from '../../context/RequestContext';
 
-const DespFormat = format.printf((info: TransformableInfo) => {
+import { getRequestContext } from '@utils/RequestContext';
+
+const logFormat = format.printf((info: TransformableInfo) => {
   const context = getRequestContext();
   const { req, id } = context;
 
   const format =
-    ':timestamp :level [:hostname] [:xClient] [:uow] [:requestId] [:trackerId]: :message :data';
+    ':timestamp :level [:hostname] [:requestId] [:client] :message';
 
   const now = new Date();
 
@@ -19,16 +20,13 @@ const DespFormat = format.printf((info: TransformableInfo) => {
     )
     .replace(':level', info.level.toUpperCase().padEnd(5, ' '))
     .replace(':hostname', hostname())
-    .replace(':xClient', (req?.headers['x-client'] as string) || '')
-    .replace(':uow', (req?.headers['x-uow'] as string) || '')
-    .replace(':requestId', id || '')
-    .replace(':trackerId', '')
-    .replace(':message', info.message)
-    .replace(':data', '');
+    .replace(':client', (req?.headers['x-client'] as string) || 'x-client')
+    .replace(':requestId', id || 'requestId')
+    .replace(':message', info.message);
 });
 
 export const defaultLogger = createLogger({
   level: 'info',
-  format: format.combine(DespFormat),
+  format: format.combine(logFormat),
   transports: [new transports.Console()]
 });

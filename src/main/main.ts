@@ -1,4 +1,5 @@
 import 'reflect-metadata'; // Enable the use of annotations/decorators
+import 'module-alias/register'; //enable module aliases
 
 import App from './app';
 
