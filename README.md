@@ -6,4 +6,5 @@ This project was created from [this template](https://github.com/lmoscheni/fasti
 
 ## Topics
 ### [About Template](docs/About.md)
+### [Techs](docs/Techs.md)
 ### [List of Commands](docs/Commands.md)
