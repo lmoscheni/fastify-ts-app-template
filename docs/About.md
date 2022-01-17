@@ -10,7 +10,7 @@ The project has the unique objective of simplifying the start-up and initial con
 - [x] Basic HealthCheck Controller
 - [x] PM2
 - [x] Docker
-- [ ] Docker compose with Ngnix (to expose app)
+- [x] Docker compose with Ngnix (to expose app)
 - [ ] Swagger
 - [x] Jest
 - [x] Logger (with winston)
