@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  api:
+    build: .
+    ports: 
+      - "8080:8080"
+    volumes:
+      - .:/code
+      - logvolume01:/var/log
+volumes:
+  logvolume01: {}

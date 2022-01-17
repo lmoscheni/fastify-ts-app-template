@@ -27,3 +27,7 @@ This project was configured with PM2 out of the bow, to run this project with PM
 | docker run -p 8080:8080 -d <your-user/your-project> | Run a container for the image |
 | docker stop <container-id> | Stop and Down the container and server |
 
+## Production Commands with Docker Compose
+You can run docker-compose with `docker compose up` on the root directory of the project.
+
+
