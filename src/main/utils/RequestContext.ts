@@ -28,25 +28,24 @@ class RequestContextImpl implements RequestContext {
   }
 }
 
-const _contexts: { [key: string]: RequestContext } = {};
-
 const DEFAULT_CONTEXT = new RequestContextImpl('', defaultLogger);
+const _contexts: Map<string, RequestContext> = new Map();
+
+const shortRequestId = (id: string): string => (id || 'unknown').split('-')[0];
 
 export function setupRequestContext(reqId: string, req?: FastifyRequest): void {
-  const shortReqId = (reqId || 'unknown').split('-')[0];
-
-  _contexts[shortReqId] = new RequestContextImpl(
+  const shortReqId = shortRequestId(reqId);
+  _contexts.set(
     shortReqId,
-    defaultLogger,
-    req
+    new RequestContextImpl(shortReqId, defaultLogger, req)
   );
 }
 
 export function getRequestContext(): RequestContext {
-  const shortReqId = ((rTracer.id() as string) || '').split('-')[0];
-  return _contexts[shortReqId] || DEFAULT_CONTEXT;
+  const shortReqId = shortRequestId(rTracer.id() as string);
+  return _contexts.get(shortReqId) || DEFAULT_CONTEXT;
 }
 
 export function deleteRequestContext(reqId: string): void {
-  delete _contexts[reqId.split('-')[0]];
+  _contexts.delete(reqId.split('-')[0]);
 }
