@@ -15,10 +15,10 @@ This project was configured with PM2 out of the bow, to run this project with PM
 
 | command | description |
 | ------- | ----------- |
-| npm run prod:start | Start production server with PM2 |
-| npm run prod:stop | Stop production server with PM2 |
-| npm run prod:kill | Kill PM2 process|
-| npm run prod:list | List PM2 process |
+| npm run pm2:start | Start production server with PM2 |
+| npm run pm2:stop | Stop production server with PM2 |
+| npm run pm2:kill | Kill PM2 process|
+| npm run pm2:list | List PM2 process |
 
 ## Production Commands with Docker
 | command | description |
