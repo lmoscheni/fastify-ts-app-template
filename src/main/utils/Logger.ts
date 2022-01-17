@@ -1,5 +1,5 @@
-import { createLogger, format, transports } from 'winston';
 import { hostname } from 'os';
+import { createLogger, format, transports } from 'winston';
 import { TransformableInfo } from 'logform';
 
 import { getRequestContext } from '@utils/RequestContext';

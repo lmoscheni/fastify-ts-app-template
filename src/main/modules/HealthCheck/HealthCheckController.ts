@@ -1,5 +1,6 @@
-import { getRequestContext } from '@utils/RequestContext';
 import { Controller, GET } from 'fastify-decorators';
+
+import { getRequestContext } from '@utils/RequestContext';
 
 import HealthCheckFacade from './HealthCheckFacade';
 
