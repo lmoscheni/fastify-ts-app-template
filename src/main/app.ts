@@ -73,7 +73,7 @@ export default class App {
 
     this.setupContextHooks();
 
-    this.server.listen(8080, (err: Error | null, address: string) => {
+    this.server.listen(8080, '::', (err: Error | null, address: string) => {
       if (err) {
         defaultLogger.error(`Error on start ${err.toString()}`);
         process.exit(1);
