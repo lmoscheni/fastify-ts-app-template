@@ -1,11 +1,11 @@
 import fastify from 'fastify';
-import fastifyEnv from 'fastify-env';
 import fastifyHelmet from 'fastify-helmet';
 import rTracer from 'cls-rtracer';
 
 import { bootstrap } from 'fastify-decorators';
 import { resolve } from 'path';
 
+import config from '@config/index';
 import { defaultLogger } from '@utils/Logger';
 import {
   deleteRequestContext,
@@ -19,22 +19,6 @@ export default class App {
     this.server.register(bootstrap, {
       directory: resolve(__dirname, `modules`), // Specify directory with our controllers
       mask: /Controller\./ // Specify mask to match only our controllers
-    });
-  }
-
-  private registerEnvConfig(): void {
-    this.server.register(fastifyEnv, {
-      dotenv: true,
-      schema: {
-        type: 'object',
-        required: ['PORT'],
-        properties: {
-          PORT: {
-            type: 'string',
-            default: 8080
-          }
-        }
-      }
     });
   }
 
@@ -66,19 +50,22 @@ export default class App {
   }
 
   start(): void {
-    this.registerEnvConfig();
     this.registerHelment();
     this.registerControllers();
     this.registerRTracer();
 
     this.setupContextHooks();
 
-    this.server.listen(8080, '::', (err: Error | null, address: string) => {
-      if (err) {
-        defaultLogger.error(`Error on start ${err.toString()}`);
-        process.exit(1);
+    this.server.listen(
+      config().port,
+      '::',
+      (err: Error | null, address: string) => {
+        if (err) {
+          defaultLogger.error(`Error on start ${err.toString()}`);
+          process.exit(1);
+        }
+        defaultLogger.info(`Server listening at ${address}`);
       }
-      defaultLogger.info(`Server listening at ${address}`);
-    });
+    );
   }
 }
