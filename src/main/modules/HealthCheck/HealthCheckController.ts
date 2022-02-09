@@ -1,10 +1,10 @@
-import { Controller, GET } from 'fastify-decorators';
+import { Controller, GET } from 'fastify-decorators'
 
-import { getRequestContext } from '@utils/RequestContext';
+import { getRequestContext } from '@utils/RequestContext'
 
-import HealthCheckFacade from './HealthCheckFacade';
+import HealthCheckFacade from './HealthCheckFacade'
 
-import HealthCheckResponse from './model/HealthCheckResponse';
+import HealthCheckResponse from './model/HealthCheckResponse'
 
 @Controller({ route: '/' })
 export default class HealthCheckController {
@@ -12,8 +12,8 @@ export default class HealthCheckController {
 
   @GET({ url: '/health-check' })
   async healthCheckHandler(): Promise<HealthCheckResponse> {
-    const context = getRequestContext();
-    context.logger.info(`${this?.constructor?.name}:healthCheckHandler`);
-    return this._facade.healthCheck();
+    const context = getRequestContext()
+    context.logger.info(`${this?.constructor?.name}:healthCheckHandler`)
+    return this._facade.healthCheck()
   }
 }

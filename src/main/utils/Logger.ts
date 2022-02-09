@@ -1,17 +1,16 @@
-import { hostname } from 'os';
-import { createLogger, format, transports } from 'winston';
-import { TransformableInfo } from 'logform';
+import { hostname } from 'os'
+import { createLogger, format, transports } from 'winston'
+import { TransformableInfo } from 'logform'
 
-import { getRequestContext } from '@utils/RequestContext';
+import { getRequestContext } from '@utils/RequestContext'
 
 const logFormat = format.printf((info: TransformableInfo) => {
-  const context = getRequestContext();
-  const { req, id } = context;
+  const context = getRequestContext()
+  const { req, id } = context
 
-  const format =
-    ':timestamp :level [:hostname] [:requestId] [:client] :message';
+  const format = ':timestamp :level [:hostname] [:requestId] [:client] :message'
 
-  const now = new Date();
+  const now = new Date()
 
   return format
     .replace(
@@ -22,11 +21,11 @@ const logFormat = format.printf((info: TransformableInfo) => {
     .replace(':hostname', hostname())
     .replace(':client', (req?.headers['x-client'] as string) || 'x-client')
     .replace(':requestId', id || 'requestId')
-    .replace(':message', info.message);
-});
+    .replace(':message', info.message)
+})
 
 export const defaultLogger = createLogger({
   level: 'info',
   format: format.combine(logFormat),
   transports: [new transports.Console()]
-});
+})
