@@ -12,4 +12,4 @@ module.exports = {
     '^@external(.*)$': '<rootDir>/src/main/external$1',
     '^@utils(.*)$': '<rootDir>/src/main/utils$1'
   }
-};
+}
