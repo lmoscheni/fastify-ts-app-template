@@ -26,3 +26,17 @@ export class CreationError extends Error {
     this.data = data
   }
 }
+export class UpdateError extends Error {
+  code = 500
+
+  message: string
+  data: KeyValue
+  stack?: string | undefined
+
+  constructor(data: KeyValue, stack?: string | undefined) {
+    super()
+    this.message = `Can not update Todo[${data.id}]`
+    this.stack = stack
+    this.data = data
+  }
+}

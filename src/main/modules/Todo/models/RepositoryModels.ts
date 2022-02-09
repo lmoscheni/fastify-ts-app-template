@@ -20,3 +20,11 @@ export type CreateTodo = {
   content: string
   imageURL?: string
 }
+
+export type UpdateTodo = {
+  updatedAt: string
+
+  title?: string
+  content?: string
+  imageURL?: string
+}

@@ -17,3 +17,9 @@ export type CreateTodoAPI = {
   content: string
   imageURL?: string
 }
+
+export type UpdateTodoAPI = {
+  title?: string
+  content?: string
+  imageURL?: string
+}

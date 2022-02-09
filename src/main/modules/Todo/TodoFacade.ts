@@ -1,6 +1,6 @@
 import { Service } from 'fastify-decorators'
-import { CreationError, NotFound } from './models/APIErrors'
-import { CreateTodoAPI, TodoAPI } from './models/APIModels'
+import { CreationError, NotFound, UpdateError } from './models/APIErrors'
+import { CreateTodoAPI, TodoAPI, UpdateTodoAPI } from './models/APIModels'
 import { Todo } from './models/RepositoryModels'
 import TodoRepository from './TodoRepository'
 
@@ -24,24 +24,39 @@ export default class TodoFacade {
   }
 
   async get(id: string): Promise<TodoAPI> {
-    const todo = await this._repository.get(id)
-
-    if (!todo) {
+    try {
+      const todo = await this._repository.get(id)
+      return fromRepositoryToAPI(todo)
+    } catch (err) {
       throw new NotFound(id)
     }
-
-    return fromRepositoryToAPI(todo)
   }
 
   async create(data: CreateTodoAPI): Promise<TodoAPI> {
-    const created = await this._repository.create({
-      ...data,
-      createdAt: new Date().toString()
-    })
-
-    if (!created) {
+    try {
+      const created = await this._repository.create({
+        ...data,
+        createdAt: new Date().toString()
+      })
+      return fromRepositoryToAPI(created)
+    } catch (e) {
       throw new CreationError(data)
     }
-    return fromRepositoryToAPI(created)
+  }
+
+  async remove(id: string): Promise<{ id: string }> {
+    return this._repository.remove(id)
+  }
+
+  async update(id: string, data: UpdateTodoAPI): Promise<TodoAPI> {
+    try {
+      const updated = await this._repository.update(id, {
+        ...data,
+        updatedAt: new Date().toISOString()
+      })
+      return fromRepositoryToAPI(updated)
+    } catch (e) {
+      throw new UpdateError({ id, ...data })
+    }
   }
 }
