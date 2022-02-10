@@ -34,7 +34,7 @@ When you use docker the app is running on http://localhost:8080
 ## Production Commands with Docker Compose
 You can run docker-compose with `docker compose up` on the root directory of the project.
 ```
-When you use docker-compose this runs an Nginx on port 80 and the node app on port 8080, and this is because the config was planned to use the Nginx as a reverse proxy.
+When you use docker-compose this runs an Nginx on port 80, the node app on port 8080 and mongo on port 27017, and this is because the config was planned to use the Nginx as a reverse proxy.
 If you want to use all the config you need to do the requests at http://localhost/api/*
 ```
 
